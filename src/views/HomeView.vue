@@ -14,8 +14,8 @@ const changeView=(param:string)=>{
   <h1>酒店远程显示控制系统</h1>
   <div class="wrap">
     <header>
-      <div class="view" :style="{backgroundColor:currentEl=='view'?'gray':'white'}" @click="changeView('view')">视图</div>
-      <div class="list" :style="{backgroundColor:currentEl=='view'?'white':'gray'}" @click="changeView('list')">列表</div>
+      <div class="view" :style="{backgroundColor:currentEl=='view'?'white':'gray'}" @click="changeView('view')">视图</div>
+      <div class="list" :style="{backgroundColor:currentEl=='view'?'gray':'white'}" @click="changeView('list')">列表</div>
     </header>
 
     <main>
@@ -46,7 +46,7 @@ header {
 }
 main{
   display:flex;
-  :deep(.wrap){
+  >:deep(.graphWrap){
     flex:1;
   }
 }
