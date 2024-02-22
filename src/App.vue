@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+window.addEventListener('contextmenu', function(e){ 
+    e.preventDefault(); 
+});
 </script>
 
 <template>
@@ -8,6 +10,11 @@ import HelloWorld from './components/HelloWorld.vue'
 </template>
 
 <style scoped>
+:global(*){
+  margin:0;
+  padding:0;
+  user-select: none;
+}
 header {
   line-height: 1.5;
   max-height: 100vh;

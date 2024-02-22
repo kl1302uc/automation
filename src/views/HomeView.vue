@@ -1,9 +1,44 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import FloorID from "../components/firstPage/FloorID.vue";
+import Graph from "../components/firstPage/Graph.vue";
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <h1>酒店远程显示控制系统</h1>
+  <div class="wrap">
+    <header>
+      <div class="view">视图</div>
+      <div class="list">列表</div>
+    </header>
+
+    <main>
+      <FloorID></FloorID>
+      <Graph></Graph>
+    </main>
+  </div>
 </template>
+
+<style scoped lang="less">
+h1 {
+  text-align: center;
+  font-size: 4vw;
+
+}
+
+header {
+  display: flex;
+
+  >div {
+    flex: 1;
+    text-align: center;
+    border: solid 0.5vw;
+    font-size: 3vw;
+  }
+}
+main{
+  display:flex;
+  :deep(.wrap){
+    flex:1;
+  }
+}
+</style>
