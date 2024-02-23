@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import FloorID from "../components/firstPage/FloorID.vue";
 import Graph from "../components/firstPage/Graph.vue";
-// import List from "../components/firstPage/List.vue";
+import List from "../components/firstPage/List.vue";
 import {ref} from "vue";
 import type{Ref} from "vue";
 const currentEl:Ref<string> = ref("view");
+  const isListShow:Ref<boolean>=ref(false);
 const changeView=(param:string)=>{
  currentEl.value=param;
+isListShow.value=param=="view"?false:true
 }
 </script>
 
@@ -18,12 +20,11 @@ const changeView=(param:string)=>{
       <div class="list" :style="{backgroundColor:currentEl=='view'?'gray':'white'}" @click="changeView('list')">列表</div>
     </header>
 
-    <main>
+    <main v-show="!isListShow" >
       <FloorID></FloorID>
       <Graph></Graph>
-      
-      
     </main>
+    <List v-show="isListShow"></List>
   </div>
 </template>
 

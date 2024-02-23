@@ -9,7 +9,6 @@
     const changeFloor=(floor:string)=>{
         //myColor.value="white";
         graphStore.floorNumber=floor;
-
     }
 
 
