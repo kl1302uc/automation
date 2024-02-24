@@ -9,9 +9,9 @@ import { ref, reactive } from 'vue';
         <caption>配电室</caption>
         <thead>
             <tr>
-                <th colspan="5">南<----------</th>
+                <th colspan="5">南&lt;----------</th>
                 <th colspan="2">西北侧</th>
-                <th colspan="5">---------->北</th>
+                <th colspan="5">----------&gt;北</th>
             </tr>
         </thead>
         <tbody>
@@ -66,10 +66,14 @@ import { ref, reactive } from 'vue';
 table {
     width: 100%;
     border-collapse: collapse;
+    >caption{
+        font-size:4vw;
+        font-weight:bold;
+    }
 
     td,
     th {
-        border: solid 0.5vw gray;
+        border: solid 0.3vw gray;
         font-size: 3vw;
         text-align: center;
     }
@@ -94,4 +98,5 @@ table {
             }
         }
     }
-}</style>
+}
+</style>

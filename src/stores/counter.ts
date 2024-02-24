@@ -9,7 +9,7 @@ export const useCounterStore = defineStore('counter', () => {
     count.value++
   }
   return { count, doubleCount, increment } */
-  const floorNumber:string="一层";
+  const floorNumber:string="1层";
   return{floorNumber}
 
 })
