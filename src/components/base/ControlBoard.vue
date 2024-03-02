@@ -1,18 +1,21 @@
 <!-- 灯控器 -->
-<script setup lang='ts'>
-import { ref, reactive } from 'vue';
-interface Position {
-    position: {
-        top: string,
-        left: string,
-        right: string,
-        bottom: string
-    }
 
+<script setup lang='ts'>
+import { ref, reactive} from 'vue';
+interface Position {
+    top?: string,
+    left?: string,
+    right?: string,
+    bottom?: string
+}
+interface Iposition{
+ position:Position;
 }
 //---------------------需要解决-----------------
-const props:Position= defineProps()
-
+const {position}=withDefaults(defineProps<Iposition>(),{position:()=>{return {top:"",left:"",right:"",bottom:""}}});
+const {top,left,right,bottom}=position;
+const board=document.querySelector(".board");
+console.log(board,"board");
 </script>
 
 <template>

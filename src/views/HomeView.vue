@@ -8,7 +8,7 @@ const currentEl:Ref<string> = ref("view");
   const isListShow:Ref<boolean>=ref(false);
 const changeView=(param:string)=>{
  currentEl.value=param;
-isListShow.value=param=="view"?false:true
+  isListShow.value=param=="view"?false:true;
 }
 </script>
 
