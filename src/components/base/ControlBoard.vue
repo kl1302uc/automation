@@ -1,27 +1,29 @@
 <!-- 灯控器 -->
 
 <script setup lang='ts'>
-import { ref, reactive} from 'vue';
-interface Position {
-    top?: string,
-    left?: string,
-    right?: string,
-    bottom?: string
-}
-interface Iposition{
- position:Position;
-}
-//---------------------需要解决-----------------
-const {position}=withDefaults(defineProps<Iposition>(),{position:()=>{return {top:"",left:"",right:"",bottom:""}}});
-const {top,left,right,bottom}=position;
-const board=document.querySelector(".board");
-console.log(board,"board");
+import { ref, reactive, onMounted } from 'vue';
+import type { Position, Iposition } from "../../type/type";
+
+
+const controlWrap= ref<HTMLElement>();
+const boardDom= ref<HTMLElement>();
+const { position } = withDefaults(defineProps<Iposition>(), { position: () => { return { top: "", left: "", right: "", bottom: "" } } });
+const { top, left, right, bottom } = position;
+
+onMounted(() => {
+   //---------------------需要解决响应改变-----------------
+    let parentNodeWidth=(controlWrap.value?.parentNode as HTMLElement)?.clientWidth;
+    let controlRight = controlWrap.value!.offsetLeft+boardDom.value!.offsetWidth;
+    boardDom.value!.style.left=(parentNodeWidth-controlRight<0?parentNodeWidth-controlRight:0)+"px";
+   
+})
+
 </script>
 
 <template>
-    <div class='controlWrap'>
+    <div class='controlWrap' ref="controlWrap">
         <div class="lamp">灯</div>
-        <div class="board">
+        <div class="board" ref="boardDom">
             <h2>灯控器</h2>
             <div>
                 <div></div>1<button></button>
@@ -72,6 +74,7 @@ console.log(board,"board");
     left: v-bind(left);
     right: v-bind(right);
     bottom: v-bind(bottom);
+    border:solid 2px green;
 
     >.lamp {
         width: 4vw;
