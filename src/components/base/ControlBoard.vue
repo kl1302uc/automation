@@ -1,30 +1,46 @@
 <!-- 灯控器 -->
 
 <script setup lang='ts'>
-import { ref, reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted ,onUnmounted} from 'vue';
 import type { Position, Iposition } from "../../type/type";
 
 
 const controlWrap= ref<HTMLElement>();
 const boardDom= ref<HTMLElement>();
-const { position } = withDefaults(defineProps<Iposition>(), { position: () => { return { top: "", left: "", right: "", bottom: "" } } });
+const { position,address } = withDefaults(defineProps<Iposition>(), { position: () => { return { top: "", left: "", right: "", bottom: "" } },address:"0000" });
 const { top, left, right, bottom } = position;
-
-onMounted(() => {
-   //---------------------需要解决响应改变-----------------
+/* 窗口大小改变后自动改变灯控面板位置 */
+const handleResize=()=>{
     let parentNodeWidth=(controlWrap.value?.parentNode as HTMLElement)?.clientWidth;
     let controlRight = controlWrap.value!.offsetLeft+boardDom.value!.offsetWidth;
     boardDom.value!.style.left=(parentNodeWidth-controlRight<0?parentNodeWidth-controlRight:0)+"px";
-   
-})
+}
+const lampEvent=()=>{
+    let state = (getComputedStyle(boardDom.value as HTMLElement).display=="none")?"inline-grid":"none";
+    boardDom.value!.style.display=state;
+    if(state=="inline-grid") handleResize();
+    
+   // console.log("lampEvent",(getComputedStyle(boardDom.value as HTMLElement).display=="none")?"inline-grid":"none");
+}
 
+onMounted(() => {
+    let parentNodeWidth=(controlWrap.value?.parentNode as HTMLElement)?.clientWidth;
+    let controlRight = controlWrap.value!.offsetLeft+boardDom.value!.offsetWidth;
+    boardDom.value!.style.left=(parentNodeWidth-controlRight<0?parentNodeWidth-controlRight:0)+"px";
+    window.addEventListener("resize",handleResize);
+    window.addEventListener("click",()=>{boardDom.value!.style.display="none"});
+
+});
+onUnmounted(()=>{
+    window.removeEventListener("resize",handleResize);
+});
 </script>
 
 <template>
     <div class='controlWrap' ref="controlWrap">
-        <div class="lamp">灯</div>
-        <div class="board" ref="boardDom">
-            <h2>灯控器</h2>
+        <div class="lamp" @click.stop="lampEvent">灯</div>
+        <div class="board" @click.stop ref="boardDom">
+            <h2>地址:{{ address }}</h2>
             <div>
                 <div></div>1<button></button>
             </div>
@@ -74,7 +90,6 @@ onMounted(() => {
     left: v-bind(left);
     right: v-bind(right);
     bottom: v-bind(bottom);
-    border:solid 2px green;
 
     >.lamp {
         width: 4vw;

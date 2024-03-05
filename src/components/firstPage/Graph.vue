@@ -14,7 +14,7 @@ const graphStore = useCounterStore();
         <h2>{{ graphStore.floorNumber }}</h2>
         <div class="graphDetail">
             <EnergyMeter></EnergyMeter>
-            <ControlBoard :position="{top:'23%',left:'50%'}"></ControlBoard>
+            <ControlBoard address="0001" :position="{top:'93%',left:'50%'}"></ControlBoard>
         </div>
     </div>
 </template>

@@ -8,4 +8,5 @@ export interface Position {
 /*  定义基础组件的位置上层定义*/
 export interface Iposition{
  position:Position;
+ address:string;
 }
