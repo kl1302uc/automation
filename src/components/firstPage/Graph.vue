@@ -14,7 +14,8 @@ const graphStore = useCounterStore();
         <h2>{{ graphStore.floorNumber }}</h2>
         <div class="graphDetail">
             <EnergyMeter></EnergyMeter>
-            <ControlBoard address="0001" :position="{top:'93%',left:'50%'}"></ControlBoard>
+            <ControlBoard address="0001" :position="{top:'43%',left:'50%'}"></ControlBoard>
+            <ControlBoard address="0002" :position="{top:'53%',left:'50%'}"></ControlBoard>
         </div>
     </div>
 </template>
@@ -24,6 +25,7 @@ const graphStore = useCounterStore();
     background-color: pink;
     display: flex;
     flex-direction: column;
+    
 
     >h2 {
         background-color: gray;

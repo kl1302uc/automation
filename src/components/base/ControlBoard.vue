@@ -4,22 +4,33 @@
 import { ref, reactive, onMounted ,onUnmounted} from 'vue';
 import type { Position, Iposition } from "../../type/type";
 
-
 const controlWrap= ref<HTMLElement>();
 const boardDom= ref<HTMLElement>();
 const { position,address } = withDefaults(defineProps<Iposition>(), { position: () => { return { top: "", left: "", right: "", bottom: "" } },address:"0000" });
 const { top, left, right, bottom } = position;
+/* 定义关闭包括自己所有兄弟组件 */
+const closeLamps=()=>{
+   const lamps= controlWrap.value!.parentNode?.children as HTMLCollection;
+   for(let i = 0;i<lamps.length;i++){
+    (lamps[i] as HTMLElement).style.zIndex="1"; 
+    if(lamps[i].children[1]){
+        (lamps[i].children[1] as HTMLElement).style.display="none"; 
+    }
+   }
+}
 /* 窗口大小改变后自动改变灯控面板位置 */
 const handleResize=()=>{
     let parentNodeWidth=(controlWrap.value?.parentNode as HTMLElement)?.clientWidth;
     let controlRight = controlWrap.value!.offsetLeft+boardDom.value!.offsetWidth;
     boardDom.value!.style.left=(parentNodeWidth-controlRight<0?parentNodeWidth-controlRight:0)+"px";
+   controlWrap.value!.style.zIndex="99";
 }
+/* 灯图标被点击后根据控制面板显示隐藏并改变层级 */
 const lampEvent=()=>{
+    closeLamps();
     let state = (getComputedStyle(boardDom.value as HTMLElement).display=="none")?"inline-grid":"none";
     boardDom.value!.style.display=state;
-    if(state=="inline-grid") handleResize();
-    
+    state=="inline-grid"?handleResize():controlWrap.value!.style.zIndex="1";
    // console.log("lampEvent",(getComputedStyle(boardDom.value as HTMLElement).display=="none")?"inline-grid":"none");
 }
 
@@ -28,8 +39,7 @@ onMounted(() => {
     let controlRight = controlWrap.value!.offsetLeft+boardDom.value!.offsetWidth;
     boardDom.value!.style.left=(parentNodeWidth-controlRight<0?parentNodeWidth-controlRight:0)+"px";
     window.addEventListener("resize",handleResize);
-    window.addEventListener("click",()=>{boardDom.value!.style.display="none"});
-
+    window.addEventListener("click",()=>{boardDom.value!.style.display="none";controlWrap.value!.style.zIndex="1"});
 });
 onUnmounted(()=>{
     window.removeEventListener("resize",handleResize);
@@ -90,6 +100,7 @@ onUnmounted(()=>{
     left: v-bind(left);
     right: v-bind(right);
     bottom: v-bind(bottom);
+    z-index:1;
 
     >.lamp {
         width: 4vw;
@@ -105,7 +116,7 @@ onUnmounted(()=>{
         background-color: white;
         border: solid 0.2vw;
         box-shadow: 0.5vw 0.5vw 1vw;
-        display: inline-grid;
+        display: none;
         grid-template-columns: repeat(7, 1fr);
         grid-template-rows: repeat(3, auto);
         align-items: flex-end;
