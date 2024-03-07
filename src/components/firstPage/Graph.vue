@@ -13,7 +13,8 @@ const graphStore = useCounterStore();
     <div class='graphWrap'>
         <h2>{{ graphStore.floorNumber }}</h2>
         <div class="graphDetail">
-            <EnergyMeter></EnergyMeter>
+            <EnergyMeter address="0005" :position="{top:'30%',left:'10%'}"></EnergyMeter>
+            <EnergyMeter address="0004" :position="{top:'20%',left:'90%'}"></EnergyMeter>
             <ControlBoard address="0001" :position="{top:'43%',left:'50%'}"></ControlBoard>
             <ControlBoard address="0002" :position="{top:'53%',left:'50%'}"></ControlBoard>
         </div>
