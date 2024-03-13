@@ -2,13 +2,13 @@
 import FloorID from "../components/firstPage/FloorID.vue";
 import Graph from "../components/firstPage/Graph.vue";
 import List from "../components/firstPage/List.vue";
-import {ref} from "vue";
-import type{Ref} from "vue";
-const currentEl:Ref<string> = ref("view");
-  const isListShow:Ref<boolean>=ref(false);
-const changeView=(param:string)=>{
- currentEl.value=param;
-  isListShow.value=param=="view"?false:true;
+import { ref } from "vue";
+import type { Ref } from "vue";
+const currentEl: Ref<string> = ref("view");//判断改变顶部选择项颜色
+const isListShow: Ref<boolean> = ref(false);//用于主界面与列表界面切换
+const changeView = (param: string) => {
+  currentEl.value = param;
+  isListShow.value = param == "view" ? false : true;
 }
 </script>
 
@@ -16,11 +16,11 @@ const changeView=(param:string)=>{
   <h1>酒店远程显示控制系统</h1>
   <div class="wrap">
     <header>
-      <div class="view" :style="{backgroundColor:currentEl=='view'?'white':'gray'}" @click="changeView('view')">视图</div>
-      <div class="list" :style="{backgroundColor:currentEl=='view'?'gray':'white'}" @click="changeView('list')">列表</div>
+      <div class="view" :style="{ backgroundColor: currentEl == 'view' ? 'white' : 'gray' }" @click="changeView('view')">视图</div>
+      <div class="list" :style="{ backgroundColor: currentEl == 'view' ? 'gray' : 'white' }" @click="changeView('list')">列表</div>
     </header>
 
-    <main v-show="!isListShow" >
+    <main v-show="!isListShow">
       <FloorID></FloorID>
       <Graph></Graph>
     </main>
@@ -45,10 +45,12 @@ header {
     font-size: 3vw;
   }
 }
-main{
-  display:flex;
-  >:deep(.graphWrap){
-    flex:1;
+
+main {
+  display: flex;
+
+  >:deep(.graphWrap) {
+    flex: 1;
   }
 }
 </style>

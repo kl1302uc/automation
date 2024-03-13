@@ -3,16 +3,13 @@
     import {ref,reactive} from 'vue';
     import type{Ref} from "vue";
     import {useCounterStore} from "../../stores/counter";
-    const graphStore=useCounterStore();
-    const liNumber:number[] = [6,5,4,3,2,1,-1,-2];
-    const currentIndex:Ref<number> = ref(5);
-    const changeFloor=(floor:string)=>{
+    const graphStore=useCounterStore();//使用pina
+    const liNumber:number[] = [6,5,4,3,2,1,-1,-2];//创建楼层数组
+    const currentIndex:Ref<number> = ref(5);//设置默认楼层下标为5，对应楼层为1
+    const changeFloor=(floor:string)=>{//当楼层被点击后改变pina数据
         //myColor.value="white";
         graphStore.floorNumber=floor;
     }
-
-
-
 </script>
 
 <template>

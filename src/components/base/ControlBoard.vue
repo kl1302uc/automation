@@ -35,10 +35,10 @@ const lampEvent=()=>{
 }
 
 onMounted(() => {
-    let parentNodeWidth=(controlWrap.value?.parentNode as HTMLElement)?.clientWidth;
-    let controlRight = controlWrap.value!.offsetLeft+boardDom.value!.offsetWidth;
-    boardDom.value!.style.left=(parentNodeWidth-controlRight<0?parentNodeWidth-controlRight:0)+"px";
-    window.addEventListener("resize",handleResize);
+    let parentNodeWidth=(controlWrap.value?.parentNode as HTMLElement)?.clientWidth;//获取父节点宽度
+    let controlRight = controlWrap.value!.offsetLeft+boardDom.value!.offsetWidth;//获取控制面板右侧到父组件左侧距离
+    boardDom.value!.style.left=(parentNodeWidth-controlRight<0?parentNodeWidth-controlRight:0)+"px";//如果爷组件宽度-面板右侧<0，将相减结果赋值给面板left,否则为0；
+    window.addEventListener("resize",handleResize);//添加窗口大小改变事件
     window.addEventListener("click",()=>{boardDom.value!.style.display="none";controlWrap.value!.style.zIndex="1"});
 });
 onUnmounted(()=>{
